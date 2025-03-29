@@ -8,8 +8,9 @@ RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
     zip \
     unzip \
+    libpq-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd pdo pdo_mysql
+    && docker-php-ext-install gd pdo pdo_mysql pdo_pgsql
 
 # Instalar Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -31,4 +32,3 @@ EXPOSE 80
 
 # Comando para iniciar Laravel
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=80"]
-
